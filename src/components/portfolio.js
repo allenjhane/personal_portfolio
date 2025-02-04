@@ -2,7 +2,17 @@ import React, { useState, useEffect } from "react";
 import Card from "./ui/card";
 import Button from "./ui/button";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun } from "react-icons/fa";
+import { 
+  FaGithub, 
+  FaLinkedin, 
+  FaEnvelope, 
+  FaMoon, 
+  FaSun,
+  FaReact, 
+  FaNodeJs, 
+  FaPython, 
+  FaDatabase
+} from "react-icons/fa"; // imports all icons from react-icons/fa
 
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -19,7 +29,7 @@ const Portfolio = () => {
   }, []);
 
   return (
-    <div className={darkMode ? "min-h-screen bg-gray-900 text-pink-300 flex flex-col items-center" : "min-h-screen bg-pink-200 text-gray-600 flex flex-col items-center"}>
+    <div className={darkMode ? "min-h-screen bg-gray-900 text-pink-300 flex flex-col items-center" : "min-h-screen bg-pink-100 text-gray-600 flex flex-col items-center"}>
       <div className="w-full flex justify-end p-4">
         <button onClick={() => setDarkMode(!darkMode)} 
         className="theme-toggle-button fixed top-4 right-4 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg z-50">
@@ -27,6 +37,7 @@ const Portfolio = () => {
         </button>
       </div>
       
+      {/* Header Section */}
       <motion.div 
         className="text-center mb-8"
         initial={{ opacity: 0, y: -20 }}
@@ -35,6 +46,7 @@ const Portfolio = () => {
       >
         <h1 className="text-4xl font-bold mb-2">Allen Jhane Dela Cruz</h1>
         <p className="text-lg">Aspiring Software Engineer | Air Force Veteran</p>
+        {/* Animated GIF Section */}
         <div className="flex justify-center mb-4">
           <iframe 
             src="https://giphy.com/embed/lYV7UP5smAzkiZkXgi" 
@@ -51,6 +63,24 @@ const Portfolio = () => {
         </p>
       </motion.div>
       
+    {/* Tech Stack Section */}
+    <motion.div 
+        className="text-center mb-8"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.5 }}
+    >
+      <div className="mt-6 text-center">
+        <h2 className="text-2xl font-bold mb-3">Tech Stack</h2>
+        <div className="flex space-x-6 text-3xl">
+          <FaReact className="text-blue-400" title="React" />
+          <FaNodeJs className="text-green-500" title="Node.js" />
+          <FaPython className="text-yellow-500" title="Python" />
+          <FaDatabase className="text-gray-600" title="Databases" />
+        </div>
+      </div>
+    </motion.div>
+    
       <motion.div 
         className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl"
         initial={{ opacity: 0 }}
