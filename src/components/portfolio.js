@@ -21,7 +21,8 @@ const Portfolio = () => {
   return (
     <div className={darkMode ? "min-h-screen bg-gray-900 text-pink-300 flex flex-col items-center" : "min-h-screen bg-pink-200 text-gray-600 flex flex-col items-center"}>
       <div className="w-full flex justify-end p-4">
-        <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-full bg-gray-200 dark:bg-gray-800">
+        <button onClick={() => setDarkMode(!darkMode)} 
+        className="theme-toggle-button fixed top-4 right-4 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg z-50">
           {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-white" />}
         </button>
       </div>
@@ -33,9 +34,17 @@ const Portfolio = () => {
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-4xl font-bold mb-2">Allen Jhane Dela Cruz</h1>
-        <p className={darkMode ? "text-white text-lg" : "text-gray-500 text-lg"}>Aspiring Software Engineer | Air Force Veteran</p>
-        <p className="text-md max-w-xl mt-4">ଘ(੭ˊᵕˋ)੭* ੈ✩‧₊˚</p>
-        <p className={darkMode ? "text-white text-md max-w-xl mt-4" : "text-gray-500 text-md max-w-xl mt-4"}>
+        <p className="text-lg">Aspiring Software Engineer | Air Force Veteran</p>
+        <div className="flex justify-center mb-4">
+          <iframe 
+            src="https://giphy.com/embed/lYV7UP5smAzkiZkXgi" 
+            width="200" 
+            height="200" 
+            frameBorder="0" 
+            allowFullScreen>
+          </iframe>
+        </div>
+        <p className="text-md max-w-xl mt-4">
           Hi, I'm Jhane! I'm passionate about building innovative and efficient software solutions. 
           Experienced in full-stack development, cloud computing, and problem-solving. 
           Dedicated to continuous learning and leveraging technology to drive impactful change.
