@@ -1,0 +1,7 @@
+react
+react-dom
+framer-motion
+react-icons
+tailwindcss
+postcss
+autoprefixer
