@@ -3,6 +3,7 @@ import Card from "./ui/card";
 import Button from "./ui/button";
 import FooterInfo from "./footer/footer_info";
 import HeaderSection from "./header/header_section";
+import TechStack from "./content/tech_stack";
 import { motion } from "framer-motion";
 import {  
   FaMoon, 
@@ -44,15 +45,7 @@ const Portfolio = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.5 }}
     >
-      <div className="mt-6 text-center">
-        <h2 className="text-2xl font-bold mb-3">Tech Stack</h2>
-        <div className="flex space-x-6 text-3xl">
-          <FaReact className="text-blue-400" title="React" />
-          <FaNodeJs className="text-green-500" title="Node.js" />
-          <FaPython className="text-yellow-500" title="Python" />
-          <FaDatabase className="text-gray-600" title="Databases" />
-        </div>
-      </div>
+      <TechStack />
     </motion.div>
 
       {/* Projects Section */}
