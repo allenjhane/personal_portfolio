@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./ui/card";
 import Button from "./ui/button";
 import { motion } from "framer-motion";
@@ -6,6 +6,17 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun } from "react-icons/fa"
 
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [visitorCount, setVisitorCount] = useState(0);
+
+  useEffect(() => {
+    const storedCount = localStorage.getItem("visitorCount");
+    if (storedCount) {
+      setVisitorCount(parseInt(storedCount) + 1);
+    } else {
+      setVisitorCount(1);
+    }
+    localStorage.setItem("visitorCount", visitorCount);
+  }, []);
 
   return (
     <div className={darkMode ? "min-h-screen bg-gray-900 text-pink-300 flex flex-col items-center" : "min-h-screen bg-pink-200 text-gray-600 flex flex-col items-center"}>
@@ -22,10 +33,10 @@ const Portfolio = () => {
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-4xl font-bold mb-2">Allen Jhane Dela Cruz</h1>
-        <p className="text-lg text-gray-450">Aspiring Software Engineer | Air Force Veteran</p>
-        <p className="text-md text-gray-500 max-w-xl mt-4">ଘ(੭ˊᵕˋ)੭* ੈ✩‧₊˚</p>
-        <p className="text-md text-gray-500 max-w-xl mt-4">
-        Hi, I'm Jhane! I'm passionate about building innovative and efficient software solutions. 
+        <p className={darkMode ? "text-white text-lg" : "text-gray-500 text-lg"}>Aspiring Software Engineer | Air Force Veteran</p>
+        <p className="text-md max-w-xl mt-4">ଘ(੭ˊᵕˋ)੭* ੈ✩‧₊˚</p>
+        <p className={darkMode ? "text-white text-md max-w-xl mt-4" : "text-gray-500 text-md max-w-xl mt-4"}>
+          Hi, I'm Jhane! I'm passionate about building innovative and efficient software solutions. 
           Experienced in full-stack development, cloud computing, and problem-solving. 
           Dedicated to continuous learning and leveraging technology to drive impactful change.
         </p>
@@ -44,16 +55,19 @@ const Portfolio = () => {
         ))}
       </motion.div>
       
-      <div className="flex space-x-4 mt-8">
-        <a href="https://github.com/allenjhane" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-black text-2xl">
-          <FaGithub />
-        </a>
-        <a href="https://www.linkedin.com/in/allenjhanedelacruz/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-2xl">
-          <FaLinkedin />
-        </a>
-        <a href="mailto:allenjhane@gmail.com" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-700 text-2xl">
-          <FaEnvelope />
-        </a>
+      <div className="flex flex-col items-center mt-8">
+        <p className="mb-4 text-lg font-semibold">This site had {visitorCount} visitors 💗</p>
+        <div className="flex space-x-4">
+          <a href="https://github.com/allenjhane" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-black text-2xl">
+            <FaGithub />
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-2xl">
+            <FaLinkedin />
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-700 text-2xl">
+            <FaEnvelope />
+          </a>
+        </div>
       </div>
     </div>
   );
