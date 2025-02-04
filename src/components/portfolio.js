@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "./ui/card";
 import Button from "./ui/button";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaMoon, FaSun } from "react-icons/fa";
 
 const Portfolio = () => {
+  const [darkMode, setDarkMode] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-8">
+    <div className={darkMode ? "min-h-screen bg-gray-900 text-pink-300 flex flex-col items-center" : "min-h-screen bg-pink-200 text-gray-600 flex flex-col items-center"}>
+      <div className="w-full flex justify-end p-4">
+        <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-full bg-gray-200 dark:bg-gray-800">
+          {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-white" />}
+        </button>
+      </div>
+      
       <motion.div 
         className="text-center mb-8"
         initial={{ opacity: 0, y: -20 }}
@@ -14,7 +22,13 @@ const Portfolio = () => {
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-4xl font-bold mb-2">Allen Jhane Dela Cruz</h1>
-        <p className="text-lg text-gray-600">Aspiring Software Engineer | Air Force Veteran</p>
+        <p className="text-lg text-gray-450">Aspiring Software Engineer | Air Force Veteran</p>
+        <p className="text-md text-gray-500 max-w-xl mt-4">ଘ(੭ˊᵕˋ)੭* ੈ✩‧₊˚</p>
+        <p className="text-md text-gray-500 max-w-xl mt-4">
+        Hi, I'm Jhane! I'm passionate about building innovative and efficient software solutions. 
+          Experienced in full-stack development, cloud computing, and problem-solving. 
+          Dedicated to continuous learning and leveraging technology to drive impactful change.
+        </p>
       </motion.div>
       
       <motion.div 
@@ -24,7 +38,7 @@ const Portfolio = () => {
         transition={{ delay: 0.3, duration: 0.5 }}
       >
         {[1, 2, 3].map((item) => (
-          <Card key={item} title={`Project ${item}`} description="Short description of the project goes here.">
+          <Card key={item} title={<span className="text-black">{`Project ${item}`}</span>} description="Short description of the project goes here." className={darkMode ? "bg-gray-800 text-pink-300" : "bg-white text-black"}>
             <Button className="mt-4">View More</Button>
           </Card>
         ))}
