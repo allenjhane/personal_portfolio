@@ -1,11 +1,19 @@
-  /* Fix dark/light theme button to the top-right corner */
-  .theme-toggle-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+/* Fix dark/light theme button to the top-right corner */
+.theme-toggle-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Tech Stack Icon Hover Effect */
+.tech-icon {
+  transition: transform 0.3s ease-in-out;
+}
+.tech-icon:hover {
+  transform: scale(1.5) rotate(360deg);
+}
