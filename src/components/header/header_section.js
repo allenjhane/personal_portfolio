@@ -82,8 +82,6 @@ const HeaderSection = () => {
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                 <div className="bg-white p-6 rounded-lg shadow-lg w-96">
                     <h2 className="text-xl text-black font-bold mb-4">Contact Me</h2>
-                    <label className="block text-gray-700">To:</label>
-                    <input type="text" className="w-full p-2 text-black border rounded mb-2 bg-gray-200" value={recipientEmail} disabled />
                     <label className="block text-gray-700">From:</label>
                     <input type="email" className="w-full p-2 border rounded mb-2" placeholder="Your Email" value={fromEmail} onChange={(e) => setFromEmail(e.target.value)} />
                     <label className="block text-gray-700">Message:</label>
