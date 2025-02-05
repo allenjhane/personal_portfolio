@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // Allow frontend to communicate with backend
+app.use(cors({ origin: "http://localhost:3000" })); // Allow frontend to communicate with backend
 
 const transporter = nodemailer.createTransport({
   service: "gmail", // Use your email provider
@@ -43,3 +43,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "Loaded" : "Not Loaded");
