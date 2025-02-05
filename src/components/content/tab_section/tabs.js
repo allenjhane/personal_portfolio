@@ -4,6 +4,7 @@ import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeli
 import "react-vertical-timeline-component/style.min.css";
 import { FaJetFighter } from "react-icons/fa6";
 import { LuSparkles } from "react-icons/lu";
+import JourneyPage from './tab_pages/journey_page';
 
 const lightThemePink = "#FCE7F3"; // Light theme pink color
 const Tabs = ({ activeTab, setActiveTab }) => {
@@ -24,26 +25,7 @@ const Tabs = ({ activeTab, setActiveTab }) => {
             </div>
         
             <div className="border border-[#FAFAFA] min-h-[300px] bg-[#FAFAFA] text-black shadow-lg rounded-b-lg rounded-t-none p-6">
-                {activeTab === "journey" && (
-                    <VerticalTimeline lineColor="#D3D3D3">
-                        <VerticalTimelineElement className="vertical-timeline-element--work" 
-                                                date={<span style={{ padding: '8px' }}>Jan 2019</span>}
-                                                icon={<FaJetFighter />} 
-                                                iconStyle={{ background: lightThemePink }}
-                                                contentStyle={{ borderTop: `4px solid ${lightThemePink}`, 
-                                                                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
-                            <h3 className="vertical-timeline-element-title">Joined the Air Force</h3>
-                        </VerticalTimelineElement>
-                        <VerticalTimelineElement className="vertical-timeline-element--work" 
-                                                date={<span style={{ padding: '8px' }}>Jul 2024</span>}
-                                                icon={<LuSparkles />}
-                                                iconStyle={{ background: lightThemePink }}
-                                                contentStyle={{ borderTop: `4px solid ${lightThemePink}`,
-                                                                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
-                            <h3 className="vertical-timeline-element-title">Internship at NASA</h3>
-                        </VerticalTimelineElement>
-                    </VerticalTimeline>
-                )}
+                {activeTab === "journey" && (<JourneyPage />)}
                 {activeTab === "projects" && (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {[1, 2, 3].map((item) => (
