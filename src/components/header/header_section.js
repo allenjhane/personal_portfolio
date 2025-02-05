@@ -21,7 +21,7 @@ const HeaderSection = () => {
     return (
         <div className="text-center mb-8">
             {/* Header Text */}
-            <h1 className="text-4xl font-bold mb-2 py-5">Allen Jhane Dela Cruz</h1>
+            <h1 className="text-4xl font-bold mb-2 pt-8">Allen Jhane Dela Cruz</h1>
             <p className="text-lg">Aspiring Software Engineer | Air Force Veteran</p>
             
             {/* Animated GIF Section */}
@@ -56,7 +56,7 @@ const HeaderSection = () => {
             </div>
 
             {/* Visitor Count */}
-            <p className="mb-4 text-lg font-semibold py-7">This site had {visitorCount} visitors 💗</p>
+            <p className="mb-4 text-lg font-semibold pt-7 pb-0">This site had {visitorCount} visitors 💗</p>
         </div>
     );
 };
