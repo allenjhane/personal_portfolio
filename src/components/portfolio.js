@@ -8,10 +8,6 @@ import { motion } from "framer-motion";
 import {  
   FaMoon, 
   FaSun,
-  FaReact, 
-  FaNodeJs, 
-  FaPython, 
-  FaDatabase
 } from "react-icons/fa"; // imports all icons from react-icons/fa
 
 const Portfolio = () => {
@@ -21,7 +17,7 @@ const Portfolio = () => {
   return (
 
     /* Main Container Background of Light/Dark Mode*/
-    <div className={darkMode ? "min-h-screen bg-gray-900 text-pink-300 flex flex-col items-center" : "min-h-screen bg-pink-200 text-black flex flex-col items-center"}>
+    <div className={darkMode ? "min-h-screen bg-gray-900 text-pink-200 flex flex-col items-center" : "min-h-screen bg-pink-200 text-black flex flex-col items-center"}>
       {/* Dark Mode Toggle Button */}
       <button 
         onClick={() => setDarkMode(!darkMode)} 
@@ -40,15 +36,15 @@ const Portfolio = () => {
         <HeaderSection />
       </motion.div>
       
-    {/* Tech Stack Section */}
-    <motion.div 
-        className="text-center mb-8"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1, duration: 0.5 }}
-    >
-      <TechStack />
-    </motion.div>
+      {/* Tech Stack Section */}
+      <motion.div 
+          className="text-center mb-8"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+      >
+        <TechStack />
+      </motion.div>
 
       {/* Tab Section */}
       <motion.div 

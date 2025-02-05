@@ -23,6 +23,28 @@
   transform: scale(1.5) rotate(360deg);
 }
 
+/* Tab Styles */
 .shadow-md {
   box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1) inset;
+}
+
+/* Timeline Styles */
+.timeline {
+  position: relative;
+  padding: 20px;
+}
+.timeline-item {
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+}
+.timeline-date {
+  font-weight: bold;
+  width: 80px;
+}
+.timeline-content {
+  flex-grow: 1;
+  background: #f3f3f3;
+  padding: 10px;
+  border-radius: 8px;
 }
