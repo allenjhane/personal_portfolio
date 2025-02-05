@@ -1,9 +1,6 @@
 import React from 'react';
 import Card from "../../ui/card";
-import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import { FaJetFighter } from "react-icons/fa6";
-import { LuSparkles } from "react-icons/lu";
 import JourneyPage from './tab_pages/journey_page';
 
 const lightThemePink = "#FCE7F3"; // Light theme pink color

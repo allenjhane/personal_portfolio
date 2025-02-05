@@ -10,7 +10,7 @@ const JourneyPage = () => {
     return (
         <VerticalTimeline lineColor="#D3D3D3">
             <VerticalTimelineElement className="vertical-timeline-element--work" 
-                                        date={<span style={{ padding: '8px' }}>Jan 2019</span>}
+                                        date={<span style={{ padding: '8px' }}>January 2019</span>}
                                         icon={<FaJetFighter />} 
                                         iconStyle={{ background: lightThemePink }}
                                         contentStyle={{ borderTop: `4px solid ${lightThemePink}`, 
@@ -18,7 +18,7 @@ const JourneyPage = () => {
                 <h3 className="vertical-timeline-element-title">Joined the Air Force</h3>
             </VerticalTimelineElement>
             <VerticalTimelineElement className="vertical-timeline-element--work" 
-                                        date={<span style={{ padding: '8px' }}>Jul 2024</span>}
+                                        date={<span style={{ padding: '8px' }}>July 2024</span>}
                                         icon={<LuSparkles />}
                                         iconStyle={{ background: lightThemePink }}
                                         contentStyle={{ borderTop: `4px solid ${lightThemePink}`,
