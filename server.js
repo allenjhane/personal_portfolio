@@ -16,21 +16,32 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/send-email", async (req, res) => {
-  const { fromEmail, message } = req.body;
+  const { fromName, fromEmail, message } = req.body;
 
   if (!fromEmail || !message) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
-  const mailOptions = {
+  // Email to You (Admin)
+  const adminMailOptions = {
     from: fromEmail,
     to: process.env.EMAIL_USER, // Your email
-    subject: "New Contact Form Submission",
-    text: `From: ${fromEmail}\n\nMessage:\n${message}`,
+    subject: "New Contact Message",
+    text: `From: ${fromName}\nEmail: ${fromEmail}\n\nMessage:\n${message}`,
+  };
+
+  // Email to the Sender (Confirmation Copy)
+  const userMailOptions = {
+    from: process.env.EMAIL_USER,
+    to: fromEmail,
+    subject: "Your Message Has Been Sent",
+    text: `Hello,\n\nThank you for reaching out! Below is a copy of your message:\n\n"${message}"\n\nI will get back to you as soon as possible.\n\nBest regards,\nJhane`,
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail(adminMailOptions);
+    await transporter.sendMail(userMailOptions); // Send confirmation email
+
     res.status(200).json({ success: "Email sent successfully!" });
   } catch (error) {
     console.error("Error sending email:", error);

@@ -8,9 +8,9 @@ import {
 const HeaderSection = () => {
     const [visitorCount, setVisitorCount] = useState(0);
     const [showEmailPopup, setShowEmailPopup] = useState(false);
+    const [fromName, setFromName]= useState("");
     const [fromEmail, setFromEmail] = useState("");
     const [message, setMessage] = useState("");
-    const recipientEmail = "allenjhane@gmail.com"; // Replace with your actual email
 
     const handleSendEmail = async () => {
         if (!fromEmail || !message) {
@@ -24,7 +24,7 @@ const HeaderSection = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ fromEmail, message }),
+            body: JSON.stringify({ fromName, fromEmail, message }),
           });
       
           const data = await response.json();
@@ -83,6 +83,8 @@ const HeaderSection = () => {
                 <div className="bg-white p-6 rounded-lg shadow-lg w-96">
                     <h2 className="text-xl text-black font-bold mb-4">Contact Me</h2>
                     <label className="block text-gray-700">From:</label>
+                    <input type="email" className="w-full p-2 border rounded mb-2" placeholder="Your Name" value={fromName} onChange={(e) => setFromName(e.target.value)} />
+                    <label className="block text-gray-700">Email:</label>
                     <input type="email" className="w-full p-2 border rounded mb-2" placeholder="Your Email" value={fromEmail} onChange={(e) => setFromEmail(e.target.value)} />
                     <label className="block text-gray-700">Message:</label>
                     <textarea className="w-full p-2 border rounded mb-4" placeholder="Write your message here..." value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
