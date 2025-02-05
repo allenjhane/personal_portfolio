@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../styles.css";
 import Card from "./ui/card";
 import Button from "./ui/button";
 import FooterInfo from "./footer/footer_info";
@@ -20,13 +21,14 @@ const Portfolio = () => {
   return (
 
     /* Main Container Background of Light/Dark Mode*/
-    <div className={darkMode ? "min-h-screen bg-gray-900 text-pink-300 flex flex-col items-center" : "min-h-screen bg-pink-100 text-gray-600 flex flex-col items-center"}>
-      <div className="w-full flex justify-end p-4">
-        <button onClick={() => setDarkMode(!darkMode)} 
-        className="theme-toggle-button fixed top-4 right-4 p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg z-50">
-          {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-white" />}
-        </button>
-      </div>
+    <div className={darkMode ? "min-h-screen bg-gray-900 text-pink-300 flex flex-col items-center" : "min-h-screen bg-pink-200 text-black flex flex-col items-center"}>
+      {/* Dark Mode Toggle Button */}
+      <button 
+        onClick={() => setDarkMode(!darkMode)} 
+        className={`theme-toggle-button fixed top-4 right-4 p-3 rounded-full shadow-lg z-50 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
+      >
+        {darkMode ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-gray-900" />}
+      </button>
       
       {/* Header Section */}
       <motion.div 
