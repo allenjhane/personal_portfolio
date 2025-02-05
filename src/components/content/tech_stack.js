@@ -15,12 +15,13 @@ import {
     SiMongodb,  
     SiGooglecloud, 
     SiFirebase, 
-    SiCplusplus
+    SiCplusplus,
+    SiTailwindcss
 } from "react-icons/si";
 
 const TechStack = () => {
     return (
-        <div className="mt-6 text-center">
+        <div className="text-center">
             <h2 className="text-2xl font-bold mb-3">Tech Stack</h2>
             <div className="flex space-x-6 text-4xl">
                 <FaReact className="text-blue-400 tech-icon" title="React" />
@@ -35,6 +36,7 @@ const TechStack = () => {
                 <FaHtml5 className="text-orange-600 tech-icon" title="HTML" />
                 <FaCss3Alt className="text-blue-600 tech-icon" title="CSS" />
                 <FaJs className="text-yellow-400 tech-icon" title="JavaScript" />
+                <SiTailwindcss className="text-blue-400 tech-icon" title="Tailwind CSS" />
             </div>
         </div>
     );
