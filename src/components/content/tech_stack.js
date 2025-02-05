@@ -22,7 +22,7 @@ const TechStack = () => {
     return (
         <div className="mt-6 text-center">
             <h2 className="text-2xl font-bold mb-3">Tech Stack</h2>
-            <div className="flex space-x-6 text-3xl">
+            <div className="flex space-x-6 text-4xl">
                 <FaReact className="text-blue-400 tech-icon" title="React" />
                 <FaNodeJs className="text-green-500 tech-icon" title="Node.js" />
                 <FaPython className="text-yellow-500 tech-icon" title="Python" />

@@ -1,14 +1,9 @@
 import React from 'react';
 import Card from "../../ui/card";
-import Button from "../../ui/button";
 import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import {
-    FaJava,
-    FaReact,
-} from "react-icons/fa";
 import { FaJetFighter } from "react-icons/fa6";
-import { SiGooglecloud } from "react-icons/si";
+import { LuSparkles } from "react-icons/lu";
 
 const lightThemePink = "#FCE7F3"; // Light theme pink color
 const Tabs = ({ activeTab, setActiveTab }) => {
@@ -18,7 +13,9 @@ const Tabs = ({ activeTab, setActiveTab }) => {
                 {['journey', 'projects', 'games', 'suggestions'].map((tab) => (
                     <button 
                     key={tab} 
-                    className={`flex-1 text-center px-6 py-3 transition-all relative z-10 rounded-t-lg border-none ${activeTab === tab ? 'bg-white text-black shadow-none' : 'bg-gray-200 text-gray-600 shadow-md shadow-gray-400/50'}`}
+                    className={`flex-1 text-center px-6 py-3 transition-all relative z-10 rounded-t-lg border-none 
+                        ${activeTab === tab ? 'bg-[#FAFAFA] text-black shadow-none' : 
+                            'bg-[#FFFBF0] text-gray-600 shadow-md shadow-gray-400/50'}`}
                     onClick={() => setActiveTab(tab)}
                     >
                     {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -26,31 +23,23 @@ const Tabs = ({ activeTab, setActiveTab }) => {
                 ))}
             </div>
         
-            <div className="border border-white min-h-[300px] bg-white text-black shadow-lg rounded-b-lg rounded-t-none p-6">
+            <div className="border border-[#FAFAFA] min-h-[300px] bg-[#FAFAFA] text-black shadow-lg rounded-b-lg rounded-t-none p-6">
                 {activeTab === "journey" && (
                     <VerticalTimeline lineColor="#D3D3D3">
                         <VerticalTimelineElement className="vertical-timeline-element--work" 
-                                                date="Jan 2019" 
+                                                date={<span style={{ padding: '8px' }}>Jan 2019</span>}
                                                 icon={<FaJetFighter />} 
-                                                iconStyle={{ background: lightThemePink }}>
+                                                iconStyle={{ background: lightThemePink }}
+                                                contentStyle={{ borderTop: `4px solid ${lightThemePink}`, 
+                                                                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
                             <h3 className="vertical-timeline-element-title">Joined the Air Force</h3>
                         </VerticalTimelineElement>
                         <VerticalTimelineElement className="vertical-timeline-element--work" 
-                                                date="2021" 
-                                                icon={<FaJava />}
-                                                iconStyle={{ background: lightThemePink }}>
-                            <h3 className="vertical-timeline-element-title">Began studying Computer Science</h3>
-                        </VerticalTimelineElement>
-                        <VerticalTimelineElement className="vertical-timeline-element--work" 
-                                                date="2023" 
-                                                icon={<FaReact />}
-                                                iconStyle={{ background: lightThemePink }}>
-                            <h3 className="vertical-timeline-element-title">Started working on full-stack projects</h3>
-                        </VerticalTimelineElement>
-                        <VerticalTimelineElement className="vertical-timeline-element--work" 
-                                                date="2024" 
-                                                icon={<SiGooglecloud />}
-                                                iconStyle={{ background: lightThemePink }}>
+                                                date={<span style={{ padding: '8px' }}>Jul 2024</span>}
+                                                icon={<LuSparkles />}
+                                                iconStyle={{ background: lightThemePink }}
+                                                contentStyle={{ borderTop: `4px solid ${lightThemePink}`,
+                                                                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
                             <h3 className="vertical-timeline-element-title">Internship at NASA</h3>
                         </VerticalTimelineElement>
                     </VerticalTimeline>
