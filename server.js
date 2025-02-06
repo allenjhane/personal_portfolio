@@ -7,11 +7,14 @@ const app = express();
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000" })); // Allow frontend to communicate with backend
 
+// Setup Nodemailer with Zoho Mail SMTP
 const transporter = nodemailer.createTransport({
-  service: "gmail", // Use your email provider
+  host: process.env.SMTP_HOST, // Zoho SMTP
+  port: process.env.SMTP_PORT, // 587 (TLS)
+  secure: false, // TLS (use `true` if port 465)
   auth: {
-    user: process.env.EMAIL_USER, // Your email address
-    pass: process.env.EMAIL_PASS, // Your email password or app password
+    user: process.env.SMTP_USER, // noreply@yourdomain.com
+    pass: process.env.SMTP_PASS, // Your Zoho Mail Password
   },
 });
 
@@ -24,7 +27,7 @@ app.post("/send-email", async (req, res) => {
 
   // Email to You (Admin)
   const adminMailOptions = {
-    from: fromEmail,
+    from: `"Received Email from Portfolio" <${process.env.SMTP_USER}>`,
     to: process.env.EMAIL_USER, // Your email
     subject: "New Contact Message",
     text: `From: ${fromName}\nEmail: ${fromEmail}\n\nMessage:\n${message}`,
@@ -32,10 +35,13 @@ app.post("/send-email", async (req, res) => {
 
   // Email to the Sender (Confirmation Copy)
   const userMailOptions = {
-    from: process.env.EMAIL_USER,
+    from: `"Email Sent to Jhane" <${process.env.SMTP_USER}>`, // Your no-reply email
     to: fromEmail,
     subject: "Your Message Has Been Sent",
-    text: `Hello,\n\nThank you for reaching out! Below is a copy of your message:\n\n"${message}"\n\nI will get back to you as soon as possible.\n\nBest regards,\nJhane`,
+    text: `Hello,\n\n
+          Thank you for reaching out! Below is a copy of your message:\n\n
+          "${message}"\n\n
+          I will get back to you as soon as possible.\n\nBest regards,\nJhane`,
   };
 
   try {
