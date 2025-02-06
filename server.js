@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000" })); // Allow frontend to communicate with backend
+app.use(cors({ origin: "http://localhost:3000" })); // Allow frontend to communicate with backend, change to domain later
 
 // Setup Nodemailer with Zoho Mail SMTP
 const transporter = nodemailer.createTransport({
@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
 app.post("/send-email", async (req, res) => {
   const { fromName, fromEmail, message } = req.body;
 
-  if (!fromEmail || !message) {
+  if (!fromName || !fromEmail || !message) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
@@ -45,7 +45,7 @@ app.post("/send-email", async (req, res) => {
   };
 
   try {
-    await transporter.sendMail(adminMailOptions);
+    await transporter.sendMail(adminMailOptions); // send email to you with the message from the sender
     await transporter.sendMail(userMailOptions); // Send confirmation email
 
     res.status(200).json({ success: "Email sent successfully!" });
