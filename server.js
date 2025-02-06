@@ -18,6 +18,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// trying to send an email to myself and sender
 app.post("/send-email", async (req, res) => {
   const { fromName, fromEmail, message } = req.body;
 
@@ -27,16 +28,16 @@ app.post("/send-email", async (req, res) => {
 
   // Email to You (Admin)
   const adminMailOptions = {
-    from: `"Received Email from Portfolio" <${process.env.SMTP_USER}>`,
-    to: process.env.EMAIL_USER, // Your email
+    from: `"Received Email from Portfolio" <${process.env.SMTP_USER}>`, // from no-reply email
+    to: process.env.EMAIL_USER, // my email
     subject: "New Contact Message",
     text: `From: ${fromName}\nEmail: ${fromEmail}\n\nMessage:\n${message}`,
   };
 
   // Email to the Sender (Confirmation Copy)
   const userMailOptions = {
-    from: `"Email Sent to Jhane" <${process.env.SMTP_USER}>`, // Your no-reply email
-    to: fromEmail,
+    from: `"Email Sent to Jhane" <${process.env.SMTP_USER}>`, // from no-reply email
+    to: fromEmail, // sender's email
     subject: "Your Message Has Been Sent",
     text: `Hello,\n\n
           Thank you for reaching out! Below is a copy of your message:\n\n

@@ -11,6 +11,7 @@ const HeaderSection = () => {
     const [visitorCount, setVisitorCount] = useState(0);
     const [showEmailPopup, setShowEmailPopup] = useState(false);   
 
+    // Visitor Count Logic
     useEffect(() => {
         const storedCount = localStorage.getItem("visitorCount");
         if (storedCount) {
