@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles.css";
 import FooterInfo from "./footer/footer_info";
 import HeaderSection from "./header/header_section";
 import TechStack from "./content/tech_stack";
 import Tabs from "./content/tab_section/tabs";
 import { motion } from "framer-motion";
-import { FaMoon, FaSun } from "react-icons/fa";
+import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
 
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -16,11 +16,13 @@ const Portfolio = () => {
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) {
+        setMenuOpen(false);
+      }
     };
 
-    window.addEventListener("resize", handleResize);
     handleResize();
-
+    window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -43,7 +45,7 @@ const Portfolio = () => {
         <div className="flex items-center space-x-6 absolute left-6">
           {isMobile ? (
             <button onClick={() => setMenuOpen(!menuOpen)}>
-              <FaBars className="text-2xl" />
+              {menuOpen ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
             </button>
           ) : (
             <nav className="flex space-x-6">
@@ -78,7 +80,7 @@ const Portfolio = () => {
       </div>
 
       {menuOpen && isMobile && (
-        <div className="absolute top-16 left-0 right-0 bg-#FAFAFA text-black shadow-md p-4 z-50">
+        <div className="absolute top-16 left-0 right-0 bg-[#FAFAFA] text-black shadow-md p-4 z-50">
           <nav className="flex flex-col space-y-4">
             <a href="#projects" className="hover:underline" onClick={() => setMenuOpen(false)}>
               Projects
