@@ -14,7 +14,7 @@ const EmailConfig = ({ showEmailPopup, setShowEmailPopup }) => {
         
         // test email sending
         try {
-            const response = await fetch("https://personal-portfolio-h2jn.onrender.com/send-email", {
+            const response = await fetch(`${process.env.BACKEND_URL}/send-email`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
