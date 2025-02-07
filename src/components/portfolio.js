@@ -10,6 +10,19 @@ import { FaMoon, FaSun } from "react-icons/fa";
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [activeTab, setActiveTab] = useState("journey");
+  const [isMobile, setIsMobile] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div
@@ -28,17 +41,23 @@ const Portfolio = () => {
         }
       >
         <div className="flex items-center space-x-6 absolute left-6">
-          <nav className="flex space-x-6">
-            <a href="#projects" className="hover:underline">
-              Projects
-            </a>
-            <a href="#games" className="hover:underline">
-              Games
-            </a>
-            <a href="#suggestions" className="hover:underline">
-              Suggestions
-            </a>
-          </nav>
+          {isMobile ? (
+            <button onClick={() => setMenuOpen(!menuOpen)}>
+              <FaBars className="text-2xl" />
+            </button>
+          ) : (
+            <nav className="flex space-x-6">
+              <a href="#projects" className="hover:underline">
+                Projects
+              </a>
+              <a href="#games" className="hover:underline">
+                Games
+              </a>
+              <a href="#suggestions" className="hover:underline">
+                Suggestions
+              </a>
+            </nav>
+          )}
         </div>
 
         <img src="flower.png" alt="Flower" className="h-8 absolute left-1/2 transform -translate-x-1/2" />
@@ -57,6 +76,22 @@ const Portfolio = () => {
           )}
         </button>
       </div>
+
+      {menuOpen && isMobile && (
+        <div className="absolute top-16 left-0 right-0 bg-#FAFAFA text-black shadow-md p-4 z-50">
+          <nav className="flex flex-col space-y-4">
+            <a href="#projects" className="hover:underline" onClick={() => setMenuOpen(false)}>
+              Projects
+            </a>
+            <a href="#games" className="hover:underline" onClick={() => setMenuOpen(false)}>
+              Games
+            </a>
+            <a href="#suggestions" className="hover:underline" onClick={() => setMenuOpen(false)}>
+              Suggestions
+            </a>
+          </nav>
+        </div>
+      )}
 
       {/* Main Content */}
       <div className="pt-16 w-full flex flex-col items-center">
