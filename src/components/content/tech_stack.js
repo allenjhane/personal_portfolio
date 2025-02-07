@@ -9,7 +9,7 @@ import {
     FaHtml5, 
     FaCss3Alt, 
     FaJs
-} from "react-icons/fa"; // imports all icons from react-icons/fa
+} from "react-icons/fa";
 
 import { 
     SiMongodb,  
@@ -23,7 +23,7 @@ const TechStack = () => {
     return (
         <div className="text-center">
             <h2 className="text-2xl font-bold mb-3">Tech Stack</h2>
-            <div className="flex space-x-6 text-4xl">
+            <div className="flex flex-wrap justify-center gap-6 text-4xl">
                 <FaReact className="text-blue-400 tech-icon" title="React" />
                 <FaNodeJs className="text-green-500 tech-icon" title="Node.js" />
                 <FaPython className="text-yellow-500 tech-icon" title="Python" />
@@ -41,4 +41,5 @@ const TechStack = () => {
         </div>
     );
 };
+
 export default TechStack;
