@@ -16,14 +16,14 @@ const HeaderSection = () => {
         const updateVisitorCount = async () => {
         try {
             // Step 1: Get current visitor count
-            const getResponse = await fetch(`${process.env.BACKEND_URL_LOCAL}/visitor-count`); // fetches the visitor count from the backend
+            const getResponse = await fetch(`${process.env.BACKEND_URL}/visitor-count`); // fetches the visitor count from the backend
             const data = await getResponse.json();
 
             // Step 2: Increment the visitor count
             const newCount = data.count + 1;
 
             // Step 3: Update the visitor count on the server
-            await fetch(`${process.env.BACKEND_URL_LOCAL}/visitor-count`, {
+            await fetch(`${process.env.BACKEND_URL}/visitor-count`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
