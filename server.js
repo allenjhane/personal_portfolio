@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: process.env.FRONTEND_URL_LOCAL })); // Allow frontend to communicate with backend, change to domain later
+app.use(cors({ origin: process.env.FRONTEND_URL })); // Allow frontend to communicate with backend, change to domain later
 
 // Setup Nodemailer with Zoho Mail SMTP
 const transporter = nodemailer.createTransport({
@@ -56,11 +56,16 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
-// Visitor Count Logic
 let visitorCount = 0;
 
+// GET to simply retrieve the current count
 app.get('/visitor-count', (req, res) => {
-  visitorCount++;
+  res.json({ count: visitorCount });
+});
+
+// POST to increment the visitor count
+app.post('/visitor-count', (req, res) => {
+  visitorCount++;  // Increment here
   res.json({ count: visitorCount });
 });
 
