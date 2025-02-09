@@ -11,15 +11,33 @@ const HeaderSection = () => {
     const [visitorCount, setVisitorCount] = useState(0);
     const [showEmailPopup, setShowEmailPopup] = useState(false);   
 
-    // Visitor Count Logic
+    // Visitor Count Logic Using Backend API
     useEffect(() => {
-        const storedCount = localStorage.getItem("visitorCount");
-        if (storedCount) {
-        setVisitorCount(parseInt(storedCount) + 1);
-        } else {
-        setVisitorCount(1);
+        const updateVisitorCount = async () => {
+        try {
+            // Step 1: Get current visitor count
+            const getResponse = await fetch(`${process.env.BACKEND_URL_LOCAL}/visitor-count`); // fetches the visitor count from the backend
+            const data = await getResponse.json();
+
+            // Step 2: Increment the visitor count
+            const newCount = data.count + 1;
+
+            // Step 3: Update the visitor count on the server
+            await fetch(`${process.env.BACKEND_URL_LOCAL}/visitor-count`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ count: newCount }),
+            });
+
+            // Step 4: Update the UI with the new count
+            setVisitorCount(newCount);
+        } catch (error) {
+            console.error("Error updating visitor count:", error);
         }
-        localStorage.setItem("visitorCount", visitorCount);
+    };
+        updateVisitorCount();
     }, []);
 
     return (

@@ -56,9 +56,19 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
+// Visitor Count Logic
+let visitorCount = 0;
+
+app.get('/visitor-count', (req, res) => {
+  visitorCount++;
+  res.json({ count: visitorCount });
+});
+
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
 
