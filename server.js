@@ -58,15 +58,19 @@ app.post("/send-email", async (req, res) => {
 
 let visitorCount = 0;
 
-// GET to simply retrieve the current count
+// GET visitor count
 app.get('/visitor-count', (req, res) => {
   res.json({ count: visitorCount });
 });
 
-// POST to increment the visitor count
+// POST to update visitor count
 app.post('/visitor-count', (req, res) => {
-  visitorCount++;  // Increment here
-  res.json({ count: visitorCount });
+  const { count } = req.body;
+  if (typeof count === 'number') {
+    visitorCount = count;
+    return res.json({ count: visitorCount });
+  }
+  res.status(400).json({ error: 'Invalid count' });
 });
 
 // Start the server
