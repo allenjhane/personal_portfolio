@@ -14,31 +14,29 @@ const HeaderSection = () => {
     // Visitor Count Logic Using Backend API
     useEffect(() => {
         const updateVisitorCount = async () => {
-        try {
-            // Step 1: Get current visitor count
-            const getResponse = await fetch(`${process.env.BACKEND_URL}/visitor-count`); // fetches the visitor count from the backend
-            const data = await getResponse.json();
-
-            // Step 2: Increment the visitor count
-            const newCount = data.count + 1;
-
-            // Step 3: Update the visitor count on the server
-            await fetch(`${process.env.BACKEND_URL}/visitor-count`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ count: newCount }),
-            });
-
-            // Step 4: Update the UI with the new count
-            setVisitorCount(newCount);
-        } catch (error) {
-            console.error("Error updating visitor count:", error);
-        }
-    };
+            try {
+                // Make a POST request to increment the count on the backend
+                const response = await fetch(`${process.env.BACKEND_URL}/visitor-count`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                });
+        
+                if (!response.ok) throw new Error("Failed to update visitor count.");
+        
+                const data = await response.json();
+        
+                // Update the UI with the new count
+                setVisitorCount(data.count);
+            } catch (error) {
+                console.error("Error updating visitor count:", error);
+            }
+        };
+    
         updateVisitorCount();
     }, []);
+  
 
     return (
         <div className="text-center mb-8">
