@@ -17,14 +17,14 @@ const HeaderSection = () => {
         const fetchAndUpdateVisitorCount = async () => {
         try {
             // Step 1: Get the current visitor count
-            const getResponse = await axios.get(`${process.env.BACKEND_URL}/visitor-count`);
+            const getResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/visitor-count`);
             const currentCount = getResponse.data.count;
 
             // Step 2: Increment the visitor count
             const newCount = currentCount + 1;
 
             // Step 3: Post the updated count to the server
-            const postResponse = await axios.post(`${process.env.BACKEND_URL}/visitor-count`, {
+            const postResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/visitor-count`, {
                 count: newCount,
             });
 
