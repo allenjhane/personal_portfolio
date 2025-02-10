@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: [process.env.REACT_APP_FRONTEND_URL, "http://localhost:3000"], methods: ["GET", "POST"] })); // Allow frontend to communicate with backend, change to domain later
+app.use(cors({ origin: [process.env.REACT_APP_FRONTEND_URL, process.env.FRONTEND_URL_LOCAL], methods: ["GET", "POST"] })); // Allow frontend to communicate with backend, change to domain later
 
 // Setup Nodemailer with Zoho Mail SMTP
 const transporter = nodemailer.createTransport({
