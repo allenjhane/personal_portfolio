@@ -11,42 +11,31 @@ const HeaderSection = () => {
     const [visitorCount, setVisitorCount] = useState(0);
     const [showEmailPopup, setShowEmailPopup] = useState(false);   
 
-    // Visitor Count Logic Using Fetch API
-    useEffect(() => {
-        const fetchAndUpdateVisitorCount = async () => {
-            try {
-                // Step 1: Get the current visitor count
-                const getResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/visitor-count`);
-                if (!getResponse.ok) throw new Error("Failed to fetch visitor count.");
+    // Visitor Count Logic Using Axios
+  useEffect(() => {
+    const fetchAndUpdateVisitorCount = async () => {
+      try {
+        // Step 1: Get the current visitor count
+        const getResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/visitor-count`);
+        const currentCount = getResponse.data.count;
 
-                const data = await getResponse.json();
-                const currentCount = data.count;
+        // Step 2: Increment the visitor count
+        const newCount = currentCount + 1;
 
-                // Step 2: Increment the visitor count
-                const newCount = currentCount + 1;
+        // Step 3: Post the updated count to the server
+        const postResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/visitor-count`, {
+          count: newCount,
+        });
 
-                // Step 3: Post the updated count to the server
-                const postResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/visitor-count`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ count: newCount }),
-                });
+        // Step 4: Update the UI with the new count
+        setVisitorCount(postResponse.data.count);
+      } catch (error) {
+        console.error("Error updating visitor count:", error);
+      }
+    };
 
-                if (!postResponse.ok) throw new Error("Failed to update visitor count.");
-
-                const updatedData = await postResponse.json();
-
-                // Step 4: Update the UI with the new count
-                setVisitorCount(updatedData.count);
-            } catch (error) {
-                console.error("Error updating visitor count:", error);
-            }
-        };
-        fetchAndUpdateVisitorCount();
-    }, []);
-  
+    fetchAndUpdateVisitorCount();
+  }, []);
 
     return (
         <div className="text-center mb-8">
