@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import EmailConfig from './email_config';
 import { 
     FaGithub, 
@@ -12,30 +13,30 @@ const HeaderSection = () => {
     const [showEmailPopup, setShowEmailPopup] = useState(false);   
 
     // Visitor Count Logic Using Axios
-  useEffect(() => {
-    const fetchAndUpdateVisitorCount = async () => {
-      try {
-        // Step 1: Get the current visitor count
-        const getResponse = await axios.get(`${process.env.BACKEND_URL}/visitor-count`);
-        const currentCount = getResponse.data.count;
+    useEffect(() => {
+        const fetchAndUpdateVisitorCount = async () => {
+        try {
+            // Step 1: Get the current visitor count
+            const getResponse = await axios.get(`${process.env.BACKEND_URL}/visitor-count`);
+            const currentCount = getResponse.data.count;
 
-        // Step 2: Increment the visitor count
-        const newCount = currentCount + 1;
+            // Step 2: Increment the visitor count
+            const newCount = currentCount + 1;
 
-        // Step 3: Post the updated count to the server
-        const postResponse = await axios.post(`${process.env.BACKEND_URL}/visitor-count`, {
-          count: newCount,
-        });
+            // Step 3: Post the updated count to the server
+            const postResponse = await axios.post(`${process.env.BACKEND_URL}/visitor-count`, {
+                count: newCount,
+            });
 
-        // Step 4: Update the UI with the new count
-        setVisitorCount(postResponse.data.count);
-      } catch (error) {
-        console.error("Error updating visitor count:", error);
-      }
-    };
+            // Step 4: Update the UI with the new count
+            setVisitorCount(postResponse.data.count);
+        } catch (error) {
+            console.error("Error fetching and updating visitor count:", error);
+        }
+        };
 
-    fetchAndUpdateVisitorCount();
-  }, []);
+        fetchAndUpdateVisitorCount();
+    }, []);
 
     return (
         <div className="text-center mb-8">
