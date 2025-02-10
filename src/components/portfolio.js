@@ -8,6 +8,9 @@ const Projects = () => <div className="p-6 text-center">Projects Page</div>;
 const Games = () => <div className="p-6 text-center">Games Page</div>;
 const Suggestions = () => <div className="p-6 text-center">Suggestions Page</div>;
 
+const lightThemePink = "#FFD6DD"; // Light theme pink color
+const darkTheme = "#111827"; // Dark theme color
+
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -29,19 +32,18 @@ const Portfolio = () => {
   return (
     <Router>
       <div
-      className={
-        darkMode
-          ? "min-h-screen bg-gray-900 text-pink-200 flex flex-col items-center"
-          : "min-h-screen bg-pink-200 text-black flex flex-col items-center"
-      }
+        className={'min-h-screen flex flex-col items-center'}
+        style={{ color: darkMode ? lightThemePink : darkTheme, backgroundColor: darkMode ? darkTheme : lightThemePink }}
       >
+
         {/* Fixed Header Toolbar */}
         <div
           className={
             darkMode
-              ? "fixed top-0 left-0 right-0 bg-pink-200 text-black shadow-none flex items-center justify-end px-6 py-3 z-50"
-              : "fixed top-0 left-0 right-0 bg-[#FAFAFA] text-black shadow-none flex items-center justify-end px-6 py-3 z-50"
+              ? "fixed top-0 left-0 right-0 text-black shadow-none flex items-center justify-end px-6 py-3 z-50"
+              : "fixed top-0 left-0 right-0  text-black shadow-none flex items-center justify-end px-6 py-3 z-50"
           }
+          style={{ backgroundColor: darkMode ? lightThemePink : "#FAFAFA" }}
         >
           <div className="flex items-center space-x-6 absolute left-6">
             {isMobile ? (

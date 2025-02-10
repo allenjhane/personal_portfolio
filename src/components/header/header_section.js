@@ -47,7 +47,7 @@ const HeaderSection = () => {
             {/* Animated GIF Section */}
             <div className="flex justify-center mb-4">
                 <iframe 
-                    src="https://giphy.com/embed/GDQ4VYI5LsVF4xloVA" 
+                    src="https://giphy.com/embed/lYV7UP5smAzkiZkXgi" 
                     width="200" 
                     height="200" 
                     frameBorder="0" 
