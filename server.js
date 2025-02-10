@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: process.env.FRONTEND_URL })); // Allow frontend to communicate with backend, change to domain later
+app.use(cors({ origin: [process.env.FRONTEND_URL, "http://localhost:3000"], methods: ["GET", "POST"] })); // Allow frontend to communicate with backend, change to domain later
 
 // Setup Nodemailer with Zoho Mail SMTP
 const transporter = nodemailer.createTransport({
@@ -56,22 +56,24 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
+// Visitor Count Logic
 let visitorCount = 0;
 
 // GET current visitor count
-app.get('/visitor-count', (req, res) => {
+app.get("/visitor-count", (req, res) => {
   res.json({ count: visitorCount });
 });
 
 // POST to update visitor count
-app.post('/visitor-count', (req, res) => {
+app.post("/visitor-count", (req, res) => {
+  console.log("POST request received:", req.body);  // Debug log
   const { count } = req.body;
 
-  if (typeof count === 'number') {
+  if (typeof count === "number" && count >= visitorCount) {
     visitorCount = count;
     return res.json({ count: visitorCount });
   } else {
-    return res.status(400).json({ error: 'Invalid count value' });
+    return res.status(400).json({ error: "Invalid count value" });
   }
 });
 
