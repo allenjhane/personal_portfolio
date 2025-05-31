@@ -6,6 +6,7 @@ import ProjectsPage from "./content/pages/projects_page";
 import GamesPage from "./content/pages/games_page";
 import SuggestionsPage from "./content/pages/suggestions_page";
 import FooterInfo from "./footer/footer_info";
+import RetroArcadeGrid from "./ui/retro_arcade_grid";
 
 const lightThemePink = "#FFD6DD"; // Light theme pink color
 const darkTheme = "#050a30"; // Dark theme color
@@ -257,6 +258,9 @@ const Portfolio = () => {
         backgroundColor: darkMode ? darkTheme : lightThemePink 
       }}
     >
+      {/* Add this line - the grid background */}
+      <RetroArcadeGrid darkMode={darkMode} />
+      
       <SideNavigation 
         darkMode={darkMode}
         setDarkMode={setDarkMode}
