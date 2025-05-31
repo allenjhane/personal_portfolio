@@ -11,11 +11,13 @@ const lightThemePink = "#FFD6DD"; // Light theme pink color
 const darkTheme = "#111827"; // Dark theme color
 
 const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen, activeSection }) => {
+  const [hoveredItem, setHoveredItem] = useState(null);
+
   const navItems = [
-    { id: "about", label: "About Me", icon: "👋" },
-    { id: "projects", label: "Projects", icon: "💼" },
-    { id: "games", label: "Games", icon: "🎮" },
-    { id: "suggestions", label: "Suggestions", icon: "💡" }
+    { id: "about", label: "About Me" },
+    { id: "projects", label: "Projects"},
+    { id: "games", label: "Games"},
+    { id: "suggestions", label: "Suggestions"}
   ];
 
   const scrollToSection = (sectionId) => {
@@ -63,22 +65,43 @@ const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen
                 {/* Navigation Items */}
                 <nav className="space-y-4">
                   {navItems.map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                        activeSection === item.id
-                          ? darkMode
-                            ? 'bg-pink-200 text-gray-900'
-                            : 'bg-gray-900 text-white'
-                          : darkMode
-                            ? 'text-pink-200 hover:bg-gray-800'
-                            : 'text-gray-700 hover:bg-gray-100'
-                      }`}
+                    <div
+                      style={{
+                        clipPath: (activeSection === item.id || hoveredItem === item.id)
+                          ? 'polygon(0% 12px, 12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%)'
+                          : 'none',
+                        padding: (activeSection === item.id || hoveredItem === item.id) ? '4px' : '0px',
+                        background: (activeSection === item.id)
+                          ? darkMode 
+                            ? 'rgb(160, 50, 244)'    
+                            : 'rgb(160, 50, 244)'    
+                          : 'transparent'
+                      }}
                     >
-                      <span className="text-lg">{item.icon}</span>
-                      <span className="font-medium">{item.label}</span>
-                    </button>
+                      <button
+                        key={item.id}
+                        onClick={() => scrollToSection(item.id)}
+                        onMouseEnter={() => setHoveredItem(item.id)}
+                        onMouseLeave={() => setHoveredItem(null)}
+                        className={`w-full flex items-center space-x-3 px-4 py-3 transition-colors ${
+                          activeSection === item.id
+                            ? darkMode
+                              ? 'bg-gray-800 text-white'
+                              : 'bg-gray-900 text-white'
+                            : darkMode
+                              ? 'text-gray-700 hover:bg-gray-100'
+                              : 'text-gray-700 hover:bg-gray-100'
+                        }`}
+                        style={{
+                          clipPath: (activeSection === item.id || hoveredItem === item.id)
+                            ? 'polygon(0% 12px, 12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%)'
+                            : 'none'
+                        }}
+                      >
+                        <span className="text-lg">{item.icon}</span>
+                        <span className="font-medium">{item.label}</span>
+                      </button>
+                    </div>
                   ))}
                 </nav>
 
@@ -118,22 +141,43 @@ const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen
         {/* Navigation Items */}
         <nav className="space-y-4">
           {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                activeSection === item.id
-                  ? darkMode
-                    ? 'bg-gray-800 text-white'
-                    : 'bg-gray-900 text-white'
-                  : darkMode
-                    ? 'text-gray-700 hover:bg-gray-100'
-                    : 'text-gray-700 hover:bg-gray-100'
-              }`}
+            <div
+              style={{
+                clipPath: (activeSection === item.id || hoveredItem === item.id)
+                  ? 'polygon(0% 12px, 12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%)'
+                  : 'none',
+                padding: (activeSection === item.id || hoveredItem === item.id) ? '4px' : '0px',
+                background: (activeSection === item.id)
+                  ? darkMode 
+                    ? 'rgb(160, 50, 244)'    
+                    : 'rgb(160, 50, 244)'    
+                  : 'transparent'
+              }}
             >
-              <span className="text-lg">{item.icon}</span>
-              <span className="font-medium">{item.label}</span>
-            </button>
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                onMouseEnter={() => setHoveredItem(item.id)}
+                onMouseLeave={() => setHoveredItem(null)}
+                className={`w-full flex items-center space-x-3 px-4 py-3 transition-colors ${
+                  activeSection === item.id
+                    ? darkMode
+                      ? 'bg-gray-800 text-white'
+                      : 'bg-gray-900 text-white'
+                    : darkMode
+                      ? 'text-gray-700 hover:bg-gray-100'
+                      : 'text-gray-700 hover:bg-gray-100'
+                }`}
+                style={{
+                  clipPath: (activeSection === item.id || hoveredItem === item.id)
+                    ? 'polygon(0% 12px, 12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%)'
+                    : 'none'
+                }}
+              >
+                <span className="text-lg">{item.icon}</span>
+                <span className="font-medium">{item.label}</span>
+              </button>
+            </div>
           ))}
         </nav>
 
