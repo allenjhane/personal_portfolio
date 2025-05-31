@@ -1,5 +1,4 @@
 import React from 'react';
-import FooterInfo from "../../footer/footer_info";
 import HeaderSection from "../../header/header_section";
 import TechStack from "../tech_stack";
 import JourneyPage from './journey_page';
