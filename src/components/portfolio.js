@@ -1,25 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from "react-router-dom";
 import "../styles.css";
 import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
 import HomePage from "./content/pages/home_page";
-
-const Projects = () => <div className="p-6 text-center">Projects Page</div>;
-const Games = () => <div className="p-6 text-center">Games Page</div>;
-const Suggestions = () => <div className="p-6 text-center">Suggestions Page</div>;
+import ProjectsPage from "./content/pages/projects_page";
+import GamesPage from "./content/pages/games_page";
+import SuggestionsPage from "./content/pages/suggestions_page";
 
 const lightThemePink = "#FFD6DD"; // Light theme pink color
 const darkTheme = "#111827"; // Dark theme color
 
-const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen }) => {
-  const location = useLocation();
+const SuggestionsSection = () => (
+  <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="text-center">
+      <h2 className="text-4xl font-bold mb-4">Suggestions</h2>
+      <p className="text-lg">Have ideas or feedback? Let me know...</p>
+    </div>
+  </div>
+);
 
+const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen, activeSection }) => {
   const navItems = [
-    { path: "/", label: "About Me", icon: "👋" },
-    { path: "/projects", label: "Projects", icon: "💼" },
-    { path: "/games", label: "Games", icon: "🎮" },
-    { path: "/suggestions", label: "Suggestions", icon: "💡" }
+    { id: "about", label: "About Me", icon: "👋" },
+    { id: "projects", label: "Projects", icon: "💼" },
+    { id: "games", label: "Games", icon: "🎮" },
+    { id: "suggestions", label: "Suggestions", icon: "💡" }
   ];
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      });
+    }
+    if (isMobile) {
+      setMenuOpen(false);
+    }
+  };
 
   if (isMobile) {
     return (
@@ -52,12 +71,11 @@ const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen
                 {/* Navigation Items */}
                 <nav className="space-y-4">
                   {navItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      onClick={() => setMenuOpen(false)}
-                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                        location.pathname === item.path
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                        activeSection === item.id
                           ? darkMode
                             ? 'bg-pink-200 text-gray-900'
                             : 'bg-gray-900 text-white'
@@ -68,7 +86,7 @@ const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen
                     >
                       <span className="text-lg">{item.icon}</span>
                       <span className="font-medium">{item.label}</span>
-                    </Link>
+                    </button>
                   ))}
                 </nav>
 
@@ -108,11 +126,11 @@ const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen
         {/* Navigation Items */}
         <nav className="space-y-4">
           {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                location.pathname === item.path
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                activeSection === item.id
                   ? darkMode
                     ? 'bg-pink-200 text-gray-900'
                     : 'bg-gray-900 text-white'
@@ -123,7 +141,7 @@ const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen
             >
               <span className="text-lg">{item.icon}</span>
               <span className="font-medium">{item.label}</span>
-            </Link>
+            </button>
           ))}
         </nav>
 
@@ -150,6 +168,7 @@ const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
     const handleResize = () => {
@@ -164,34 +183,76 @@ const Portfolio = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  return (
-    <Router>
-      <div
-        className="min-h-screen flex"
-        style={{ 
-          color: darkMode ? lightThemePink : darkTheme, 
-          backgroundColor: darkMode ? darkTheme : lightThemePink 
-        }}
-      >
-        <SideNavigation 
-          darkMode={darkMode}
-          setDarkMode={setDarkMode}
-          isMobile={isMobile}
-          menuOpen={menuOpen}
-          setMenuOpen={setMenuOpen}
-        />
+  // Intersection Observer to track active section
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
 
-        {/* Main Content Area */}
-        <div className={`flex-1 ${isMobile ? '' : 'ml-64'} flex flex-col items-center`}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/games" element={<Games />} />
-            <Route path="/suggestions" element={<Suggestions />} />
-          </Routes>
-        </div>
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all sections
+    const sections = ['about', 'projects', 'games', 'suggestions'];
+    sections.forEach(sectionId => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      className="min-h-screen flex"
+      style={{ 
+        color: darkMode ? lightThemePink : darkTheme, 
+        backgroundColor: darkMode ? darkTheme : lightThemePink 
+      }}
+    >
+      <SideNavigation 
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        isMobile={isMobile}
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+        activeSection={activeSection}
+      />
+
+      {/* Main Content Area */}
+      <div className={`flex-1 ${isMobile ? '' : 'ml-64'}`}>
+        {/* About Section */}
+        <section id="about" className="min-h-screen">
+          <HomePage />
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="min-h-screen">
+          <ProjectsPage />
+        </section>
+
+        {/* Games Section */}
+        <section id="games" className="min-h-screen">
+          <GamesPage />
+        </section>
+
+        {/* Suggestions Section */}
+        <section id="suggestions" className="min-h-screen">
+          <SuggestionsPage />
+        </section>
       </div>
-    </Router>
+    </div>
   );
 };
 
