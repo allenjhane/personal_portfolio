@@ -114,7 +114,7 @@ const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen
   return (
     <div
       className={`fixed left-0 top-0 h-full w-64 z-40 ${
-        darkMode ? 'bg-gray-900' : 'bg-white'
+        darkMode ? 'bg-pink-200' : 'bg-white'
       } shadow-lg`}
     >
       <div className="p-6">
@@ -132,10 +132,10 @@ const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                 activeSection === item.id
                   ? darkMode
-                    ? 'bg-pink-200 text-gray-900'
+                    ? 'bg-gray-900 text-white'
                     : 'bg-gray-900 text-white'
                   : darkMode
-                    ? 'text-pink-200 hover:bg-gray-800'
+                    ? 'text-gray-700 hover:bg-gray-100'
                     : 'text-gray-700 hover:bg-gray-100'
               }`}
             >
