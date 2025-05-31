@@ -9,34 +9,7 @@ import {
 
 
 const HeaderSection = () => {
-    const [visitorCount, setVisitorCount] = useState(0);
     const [showEmailPopup, setShowEmailPopup] = useState(false);   
-
-    // Visitor Count Logic Using Axios
-    useEffect(() => {
-        const fetchAndUpdateVisitorCount = async () => {
-        try {
-            // Step 1: Get the current visitor count
-            const getResponse = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/visitor-count`);
-            const currentCount = getResponse.data.count;
-
-            // Step 2: Increment the visitor count
-            const newCount = currentCount + 1;
-
-            // Step 3: Post the updated count to the server
-            const postResponse = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/visitor-count`, {
-                count: newCount,
-            });
-
-            // Step 4: Update the UI with the new count
-            setVisitorCount(postResponse.data.count);
-        } catch (error) {
-            console.error("Error fetching and updating visitor count:", error);
-        }
-        };
-
-        fetchAndUpdateVisitorCount();
-    }, []);
 
     return (
         <div className="text-center mb-8">
@@ -81,9 +54,6 @@ const HeaderSection = () => {
                     <FaEnvelope />
                 </button>
             </div>
-
-            {/* Visitor Count */}
-            <p className="mb-4 text-lg font-semibold pt-7 pb-0">This site had {visitorCount} visitors 💗</p>
         </div>
     );
 };

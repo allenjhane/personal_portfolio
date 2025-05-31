@@ -56,27 +56,6 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
-// Visitor Count Logic
-let visitorCount = 0;
-
-// GET current visitor count
-app.get("/visitor-count", (req, res) => {
-  res.json({ count: visitorCount });
-});
-
-// POST to update visitor count
-app.post("/visitor-count", (req, res) => {
-  console.log("POST request received:", req.body);  // Debug log
-  const { count } = req.body;
-
-  if (typeof count === "number" && count >= visitorCount) {
-    visitorCount = count;
-    return res.json({ count: visitorCount });
-  } else {
-    return res.status(400).json({ error: "Invalid count value" });
-  }
-});
-
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, "0.0.0.0", () => {
