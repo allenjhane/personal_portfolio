@@ -260,7 +260,7 @@ const Portfolio = () => {
     >
       {/* Add this line - the grid background */}
       <RetroArcadeGrid darkMode={darkMode} />
-      
+
       <SideNavigation 
         darkMode={darkMode}
         setDarkMode={setDarkMode}
@@ -273,8 +273,8 @@ const Portfolio = () => {
       {/* Main Content Area */}
       <div className={`flex-1 ${isMobile ? '' : 'ml-64'}`}>
         {/* About Section */}
-        <section id="about" className="min-h-screen">
-          <HomePage />
+        <section id="about" className="min-h-screen p-8 flex items-center justify-center">
+          <HomePage darkMode={darkMode}/>
         </section>
 
         {/* Projects Section */}
