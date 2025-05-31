@@ -5,18 +5,10 @@ import HomePage from "./content/pages/home_page";
 import ProjectsPage from "./content/pages/projects_page";
 import GamesPage from "./content/pages/games_page";
 import SuggestionsPage from "./content/pages/suggestions_page";
+import FooterInfo from "./footer/footer_info";
 
 const lightThemePink = "#FFD6DD"; // Light theme pink color
 const darkTheme = "#111827"; // Dark theme color
-
-const SuggestionsSection = () => (
-  <div className="min-h-screen flex items-center justify-center p-6">
-    <div className="text-center">
-      <h2 className="text-4xl font-bold mb-4">Suggestions</h2>
-      <p className="text-lg">Have ideas or feedback? Let me know...</p>
-    </div>
-  </div>
-);
 
 const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen, activeSection }) => {
   const navItems = [
@@ -132,7 +124,7 @@ const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                 activeSection === item.id
                   ? darkMode
-                    ? 'bg-gray-900 text-white'
+                    ? 'bg-gray-800 text-white'
                     : 'bg-gray-900 text-white'
                   : darkMode
                     ? 'text-gray-700 hover:bg-gray-100'
@@ -250,6 +242,10 @@ const Portfolio = () => {
         {/* Suggestions Section */}
         <section id="suggestions" className="min-h-screen">
           <SuggestionsPage />
+        </section>
+        
+        <section id="footer">
+          <FooterInfo />
         </section>
       </div>
     </div>
