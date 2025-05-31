@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link, useLocation } from "react-router-dom";
 import "../styles.css";
 import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
 import HomePage from "./content/pages/home_page";
@@ -10,6 +10,141 @@ const Suggestions = () => <div className="p-6 text-center">Suggestions Page</div
 
 const lightThemePink = "#FFD6DD"; // Light theme pink color
 const darkTheme = "#111827"; // Dark theme color
+
+const SideNavigation = ({ darkMode, setDarkMode, isMobile, menuOpen, setMenuOpen }) => {
+  const location = useLocation();
+
+  const navItems = [
+    { path: "/", label: "About Me", icon: "👋" },
+    { path: "/projects", label: "Projects", icon: "💼" },
+    { path: "/games", label: "Games", icon: "🎮" },
+    { path: "/suggestions", label: "Suggestions", icon: "💡" }
+  ];
+
+  if (isMobile) {
+    return (
+      <>
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className={`fixed top-4 left-4 z-50 p-3 rounded-full shadow-lg ${
+            darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+          }`}
+        >
+          {menuOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
+        </button>
+
+        {/* Mobile Overlay Menu */}
+        {menuOpen && (
+          <div className="fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setMenuOpen(false)}>
+            <div
+              className={`fixed left-0 top-0 h-full w-64 transform transition-transform duration-300 ${
+                darkMode ? 'bg-gray-900' : 'bg-white'
+              } shadow-lg`}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="p-6 pt-20">
+                {/* Logo/Flower */}
+                <div className="flex justify-center mb-8">
+                  <img src="flower.png" alt="Flower" className="h-12" />
+                </div>
+
+                {/* Navigation Items */}
+                <nav className="space-y-4">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setMenuOpen(false)}
+                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                        location.pathname === item.path
+                          ? darkMode
+                            ? 'bg-pink-200 text-gray-900'
+                            : 'bg-gray-900 text-white'
+                          : darkMode
+                            ? 'text-pink-200 hover:bg-gray-800'
+                            : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      <span className="text-lg">{item.icon}</span>
+                      <span className="font-medium">{item.label}</span>
+                    </Link>
+                  ))}
+                </nav>
+
+                {/* Theme Toggle */}
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <button
+                    onClick={() => setDarkMode(!darkMode)}
+                    className={`w-full flex items-center justify-center space-x-2 p-3 rounded-lg ${
+                      darkMode ? 'bg-gray-800 text-yellow-400' : 'bg-gray-100 text-gray-700'
+                    }`}
+                  >
+                    {darkMode ? <FaSun /> : <FaMoon />}
+                    <span>{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
+
+  // Desktop Side Navigation
+  return (
+    <div
+      className={`fixed left-0 top-0 h-full w-64 z-40 ${
+        darkMode ? 'bg-gray-900' : 'bg-white'
+      } shadow-lg`}
+    >
+      <div className="p-6">
+        {/* Logo/Flower */}
+        <div className="flex justify-center mb-8">
+          <img src="flower.png" alt="Flower" className="h-12" />
+        </div>
+
+        {/* Navigation Items */}
+        <nav className="space-y-4">
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                location.pathname === item.path
+                  ? darkMode
+                    ? 'bg-pink-200 text-gray-900'
+                    : 'bg-gray-900 text-white'
+                  : darkMode
+                    ? 'text-pink-200 hover:bg-gray-800'
+                    : 'text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              <span className="text-lg">{item.icon}</span>
+              <span className="font-medium">{item.label}</span>
+            </Link>
+          ))}
+        </nav>
+
+        {/* Theme Toggle */}
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className={`w-full flex items-center justify-center space-x-2 p-3 rounded-lg transition-colors ${
+              darkMode 
+                ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700' 
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            {darkMode ? <FaSun /> : <FaMoon />}
+            <span>{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -32,84 +167,29 @@ const Portfolio = () => {
   return (
     <Router>
       <div
-        className={'min-h-screen flex flex-col items-center'}
-        style={{ color: darkMode ? lightThemePink : darkTheme, backgroundColor: darkMode ? darkTheme : lightThemePink }}
+        className="min-h-screen flex"
+        style={{ 
+          color: darkMode ? lightThemePink : darkTheme, 
+          backgroundColor: darkMode ? darkTheme : lightThemePink 
+        }}
       >
+        <SideNavigation 
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          isMobile={isMobile}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+        />
 
-        {/* Fixed Header Toolbar */}
-        <div
-          className={
-            darkMode
-              ? "fixed top-0 left-0 right-0 text-black shadow-none flex items-center justify-end px-6 py-3 z-50"
-              : "fixed top-0 left-0 right-0  text-black shadow-none flex items-center justify-end px-6 py-3 z-50"
-          }
-          style={{ backgroundColor: darkMode ? lightThemePink : "#FAFAFA" }}
-        >
-          <div className="flex items-center space-x-6 absolute left-6">
-            {isMobile ? (
-              <button onClick={() => setMenuOpen(!menuOpen)}>
-                {menuOpen ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
-              </button>
-            ) : (
-              <nav className="flex space-x-6">
-                <a href="/" className="hover:underline">
-                  About Me
-                </a>
-                <a href="/projects" className="hover:underline">
-                  Projects
-                </a>
-                <a href="/games" className="hover:underline">
-                  Games
-                </a>
-                <a href="/suggestions" className="hover:underline">
-                  Suggestions
-                </a>
-              </nav>
-            )}
-          </div>
-
-          <img src="flower.png" alt="Flower" className="h-8 absolute left-1/2 transform -translate-x-1/2" />
-
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className={
-              darkMode
-                ? "p-2 rounded-full bg-[#FAFAFA]"
-                : "p-2 rounded-full bg-gray-900"
-            }
-          >
-            {darkMode ? (
-              <FaSun className="text-yellow-500" />
-            ) : (
-              <FaMoon className="text-[#FAFAFA]" />
-            )}
-          </button>
+        {/* Main Content Area */}
+        <div className={`flex-1 ${isMobile ? '' : 'ml-64'} flex flex-col items-center`}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/games" element={<Games />} />
+            <Route path="/suggestions" element={<Suggestions />} />
+          </Routes>
         </div>
-
-        {menuOpen && isMobile && (
-          <div className="absolute top-16 left-0 right-0 bg-[#FAFAFA] text-black shadow-md p-4 z-50">
-            <nav className="flex flex-col space-y-4">
-              <Link to="/" className="hover:underline" onClick={() => setMenuOpen(false)}>
-                About Me
-              </Link>
-              <Link to="/projects" className="hover:underline" onClick={() => setMenuOpen(false)}>
-                Projects
-              </Link>
-              <Link to="/games" className="hover:underline" onClick={() => setMenuOpen(false)}>
-                Games
-              </Link>
-              <Link to="/suggestions" className="hover:underline" onClick={() => setMenuOpen(false)}>
-                Suggestions
-              </Link>
-            </nav>
-          </div>
-        )}
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/games" element={<Games />} />
-          <Route path="/suggestions" element={<Suggestions />} />
-        </Routes>
       </div>
     </Router>
   );
